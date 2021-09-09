@@ -9,6 +9,10 @@ const initialState = {
 		{
 			text: '自主学習実施',
 			complete: false
+		},
+		{
+			text: '早寝早起き',
+			complete: true
 		}
 	]
 };
