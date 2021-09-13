@@ -1,6 +1,6 @@
 import './App.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { TaskComplete } from './actions/actions';
+import { TaskComplete, TaskDelete } from './actions/actions';
 
 function App() {
 	const lists = useSelector((state) => state.lists);
@@ -10,12 +10,17 @@ function App() {
 		dispatch(TaskComplete(id));
 	};
 
+	const taskDelete = ((id) => {
+		dispatch(TaskDelete(id));
+	});
+
 	const unfinishedList = lists
 		.filter((list) => !list.complete)
 		.map((list) => (
 			<li key={ list.id }>
 				<span>{ list.text }</span>
 				<button onClick={ taskComplete.bind(this, list.id) }>完了</button>
+				<button onClick={ taskDelete.bind(this, list.id) }>削除</button>
 			</li>
 		));
 

@@ -33,6 +33,12 @@ const reducer = (state = initialState, action) => {
 					};
 				})
 			};
+		case 'TASK_DELETE':
+			return {
+				lists: state.lists.filter((list) => {
+					return list.id !== action.payload;
+				})
+			};
 		default:
 			return state;
 	}

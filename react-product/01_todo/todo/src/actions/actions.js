@@ -5,3 +5,11 @@ export const TaskComplete = (id) => {
 		payload: id
 	};
 };
+
+// 削除
+export const TaskDelete = (id) => {
+	return {
+		type: 'TASK_DELETE',
+		payload: id
+	};
+};
