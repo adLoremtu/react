@@ -39,6 +39,10 @@ const reducer = (state = initialState, action) => {
 					return list.id !== action.payload;
 				})
 			};
+		case 'TASK_ADD':
+			return {
+				lists: [...state.lists, action.payload]
+			};
 		default:
 			return state;
 	}

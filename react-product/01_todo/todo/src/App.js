@@ -1,10 +1,14 @@
 import './App.css';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { TaskComplete, TaskDelete } from './actions/actions';
+import { TaskComplete, TaskDelete, TaskAdd } from './actions/actions';
 
 function App() {
 	const lists = useSelector((state) => state.lists);
 	const dispatch = useDispatch();
+
+	const [text, setText] = useState('');
+	const [complete, setComplete] = useState(false);
 	
 	const taskComplete = (id) => {
 		dispatch(TaskComplete(id));
@@ -13,6 +17,18 @@ function App() {
 	const taskDelete = ((id) => {
 		dispatch(TaskDelete(id));
 	});
+
+	const inputText = ((e) => {
+		setText(e.target.value);
+	});
+
+	const taskAdd = () => {
+		if (!text) return;
+
+		setComplete(false);
+
+		dispatch(TaskAdd(text, complete));
+	};
 
 	const unfinishedList = lists
 		.filter((list) => !list.complete)
@@ -34,6 +50,8 @@ function App() {
 	return (
 		<div className="App">
 			<h1>Todoアプリ ver0.0.0</h1>
+			<input type="text" value={ text } onChange={ inputText } />
+			<button onClick={ taskAdd }>追加</button>
 			<h2>未完了</h2>
 			<ul>
 				{ unfinishedList }
