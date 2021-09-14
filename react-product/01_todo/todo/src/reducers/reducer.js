@@ -43,6 +43,17 @@ const reducer = (state = initialState, action) => {
 			return {
 				lists: [...state.lists, action.payload]
 			};
+		case 'TASK_INCOMPLETE': 
+			return {
+				lists: state.lists.map((list) => {
+					if (list.id !== action.payload) return list;
+
+					return {
+						...list,
+						complete: false
+					};
+				})
+			};
 		default:
 			return state;
 	}

@@ -1,0 +1,32 @@
+.App {
+  text-align: center;
+
+  &__list {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__item {
+    margin-right: 50px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+
+  &__subTitle {
+    margin-bottom: 20px;
+  }
+
+  &__todoItem {
+    margin-bottom: 10px;
+  }
+}
+
+.contents {
+  margin-bottom: 20px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}

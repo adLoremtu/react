@@ -16,13 +16,20 @@ export const TaskDelete = (id) => {
 
 // 追加
 export const TaskAdd = (text, complete) => {
-	let now = Date.now();
 	return {
 		type: 'TASK_ADD',
 		payload: {
-			now,
+			id: Date.now(),
 			text,
 			complete
 		}
+	};
+};
+
+// 未完了に戻す
+export const TaskIncomplete = (id) => {
+	return {
+		type: 'TASK_INCOMPLETE',
+		payload: id
 	};
 };
