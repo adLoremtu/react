@@ -64,7 +64,7 @@ function App() {
 	return (
 		<div className="App dark">
 			<div className="App__header contents">
-				<h1 className="App__title">Todoアプリ ver0.0.0</h1>
+				<h1 className="App__title">Todoアプリ ver0.0.1</h1>
 			</div>
 			<div className="App__add contents">
 				<input type="text" className="mr-20" value={ text } data-input onChange={ inputText } />
