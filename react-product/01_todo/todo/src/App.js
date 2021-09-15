@@ -39,9 +39,13 @@ function App() {
 		.filter((list) => !list.complete)
 		.map((list) => (
 			<li key={ list.id } className="App__todoItem">
-				<span>{ list.text }</span>
-				<button onClick={ taskComplete.bind(this, list.id) }>完了</button>
-				<button onClick={ taskDelete.bind(this, list.id) }>削除</button>
+				<span className="App__todoText mr-10">{ list.text }</span>
+				<button className="btn btn-flat btn-flat--sky mr-10" onClick={ taskComplete.bind(this, list.id) }>
+					<span className="btn__txt">完了</span>
+				</button>
+				<button className="btn btn-flat btn-flat--indianred" onClick={ taskDelete.bind(this, list.id) }>
+					<span className="btn__txt">削除</span>
+				</button>
 			</li>
 		));
 
@@ -49,20 +53,24 @@ function App() {
 		.filter((list) => list.complete)
 		.map((list) => (
 			<li key={ list.idx } className="App__todoItem">
-				<span>{ list.text }</span>
-				<button onClick={ taskUncomplete.bind(this, list.id) }>戻す</button>
+				<span className="App__todoText mr-10">{ list.text }</span>
+				<button className="btn btn-flat btn-flat--forest"  onClick={ taskUncomplete.bind(this, list.id) }>
+					<span className="btn__txt">戻す</span>
+				</button>
 			</li>
 		));
 
 
 	return (
-		<div className="App">
+		<div className="App dark">
 			<div className="App__header contents">
-				<h1>Todoアプリ ver0.0.0</h1>
+				<h1 className="App__title">Todoアプリ ver0.0.0</h1>
 			</div>
 			<div className="App__add contents">
-				<input type="text" value={ text } data-input onChange={ inputText } />
-				<button className="btn btn--orange" onClick={ taskAdd }>追加</button>
+				<input type="text" className="mr-20" value={ text } data-input onChange={ inputText } />
+				<button className="btn btn-flat btn-flat--lemonchiffon" onClick={ taskAdd }>
+					<span className="btn__txt">追加</span>
+				</button>
 			</div>
 			<div className="App__todo contents">
 				<ul className="App__list">

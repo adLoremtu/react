@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  color: #faf8f7;
 
   &__list {
     display: flex;
@@ -14,12 +15,91 @@
     }
   }
 
+  &__title {
+    font-size: 2rem;
+  }
+
   &__subTitle {
     margin-bottom: 20px;
+    font-size: 1.6rem;
   }
 
   &__todoItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 10px;
+    text-align: left;
+    font-size: 1.2rem;
+  }
+
+  &__todoText {
+    flex-grow: 1;
+    max-width: 200px;
+    word-wrap: break-word;
+  }
+}
+
+.btn {
+  display: inline-block;
+  position: relative;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  border-radius: 0.5rem;
+
+  &-flat {
+    overflow: hidden;
+    color: #fff;
+    border-radius: 0;
+    background: #000;
+
+    &--sky::before {
+      background: #00b7ee;
+    }
+
+    &--forest::before {
+      background: #228b22;
+    }
+
+    &--indianred::before {
+      background: #cd5c5c;
+    }
+
+    &--lemonchiffon::before {
+      background: #fffacd;
+    }
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 180%;
+      height: 500%;
+      content: "";
+      transition: all 0.5s ease-in-out;
+      transform: translateX(-110%) translateY(-20%) rotate(45deg);
+    }
+
+    &:hover {
+      color: #212529;
+    }
+
+    &:hover:before {
+      transform: translateX(-9%) translateY(-25%) rotate(45deg);
+    }
+  }
+
+  &__txt {
+    position: relative;
   }
 }
 
@@ -30,3 +110,6 @@
     margin-bottom: 0;
   }
 }
+
+.mr-10 { margin-right: 10px; }
+.mr-20 { margin-right: 20px; }
