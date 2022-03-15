@@ -1,7 +1,7 @@
 import React from 'react';
 import defaultDataset from './dataset';
 import './assets/styles/style.css';
-import { AnswersList, Chats } from './components';
+import { AnswersList, Chats, FormDialog } from './components';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -14,6 +14,8 @@ export default class App extends React.Component {
       open: false
     }
     this.selectAnswer = this.selectAnswer.bind(this)
+    this.handleClickOpen = this.handleClickOpen.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
   
   // 質問
@@ -44,6 +46,10 @@ export default class App extends React.Component {
         link.href = nextQuestionId;
         link.target = '_blank';
         link.click();
+        break;
+        
+      case (nextQuestionId === 'contact'):
+        this.handleClickOpen()
         break;
         
       default:
@@ -81,12 +87,23 @@ export default class App extends React.Component {
     }
   }
   
+  // モーダルオープン
+  handleClickOpen() {
+    this.setState({open: true});
+  };
+
+  // モーダルクローズ
+  handleClose() {
+      this.setState({open: false});
+  };
+  
   render() {
     return (
       <section className='c-section'>
         <div className='c-box'>
           <Chats chats={this.state.chats}/>
           <AnswersList answers={this.state.answers} select={this.selectAnswer}/>
+          <FormDialog open={this.state.open} handleClose={this.handleClose} />
         </div>
       </section>
     );
