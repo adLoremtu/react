@@ -7,6 +7,9 @@ const Root = styled(Button)(() => ({
     color: '#ffb549',
     fontWeight: 600,
     marginBottom: '8px',
+    "&:last-of-type": {
+        marginBottom: '0'
+    },
     "&:hover": {
         backgroundColor: '#ffb549',
         borderColor: "#ffb549",

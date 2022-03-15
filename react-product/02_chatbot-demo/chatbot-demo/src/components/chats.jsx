@@ -11,7 +11,7 @@ const Root = styled(List)(() => ({
 
 const Chats = (props) => {
     return (
-        <Root id={'scroll-area'}>
+        <Root id={'scroll-area'} className={'c-grid__chat'}>
             {props.chats.map((chat, index) => (
                 <Chat text={chat.text} type={chat.type} key={index.toString()}/>
             ))}

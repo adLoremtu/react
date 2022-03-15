@@ -3,7 +3,6 @@
         "answers": [
             {"content": "仕事を依頼したい", "nextId": "job_offer"},
             {"content": "勉強方法を知りたい", "nextId": "howto_study"},
-            {"content": "学習コミュニティについて知りたい", "nextId": "community"},
             {"content": "てかあなたは誰ですか", "nextId": "dating"}
         ],
         "question": "こんにちは！ご用件はなんでしょうか？"
