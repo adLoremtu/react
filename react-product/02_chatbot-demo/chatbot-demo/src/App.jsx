@@ -1,7 +1,8 @@
 import React from 'react';
-import defaultDataset from './dataset';
 import './assets/styles/style.css';
 import { AnswersList, Chats, FormDialog } from './components';
+import { db } from './firebase';
+import { collection, getDocs } from "firebase/firestore";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -10,7 +11,7 @@ export default class App extends React.Component {
       answers: [],
       chats: [],
       currentId: "init",
-      dataset: defaultDataset,
+      dataset: {},
       open: false
     }
     this.selectAnswer = this.selectAnswer.bind(this)
@@ -69,10 +70,26 @@ export default class App extends React.Component {
     }
   }
   
+  initDataset = (dataset) => {
+    this.setState({dataset: dataset})
+  }
+  
   // 画面初期描画直後に実行される
   componentDidMount() {
-    const initAnswer = '';
-    this.selectAnswer(initAnswer, this.state.currentId);
+    (async() => {
+      const dataset = this.state.dataset;
+      const q = collection(db, 'questions');
+      const querySnapShot = await getDocs(q);
+      
+      querySnapShot.forEach((doc) => {
+          dataset[doc.id] = doc.data();
+      })
+      
+      this.initDataset(dataset);
+      const initAnswer = '';
+      this.selectAnswer(initAnswer, this.state.currentId);
+    })();
+
   }
   
   // 最新チャットが見えるようにスクロール位置を最下部に設定
