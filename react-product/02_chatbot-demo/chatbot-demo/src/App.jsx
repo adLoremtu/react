@@ -1,47 +1,30 @@
-import React from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import './assets/styles/style.css';
 import { AnswersList, Chats, FormDialog } from './components';
 import { db } from './firebase';
 import { collection, getDocs } from "firebase/firestore";
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      answers: [],
-      chats: [],
-      currentId: "init",
-      dataset: {},
-      open: false
-    }
-    this.selectAnswer = this.selectAnswer.bind(this)
-    this.handleClickOpen = this.handleClickOpen.bind(this)
-    this.handleClose = this.handleClose.bind(this)
-  }
+const App = () => {
+  const [answers, setAnswers] = useState([]);
+  const [chats, setChats] = useState([]);
+  const [currentId, setCurrentId] = useState("init");
+  const [dataset, setDataset] = useState({});
+  const [open, setOpen] = useState(false);
   
   // 質問
-  displayNextQuestion = (nextQuestionId) => {
-    const chats = this.state.chats;
-    chats.push({
-      text: this.state.dataset[nextQuestionId].question,
+  const displayNextQuestion = (nextQuestionId, nextDataSet) => {
+    addChats({
+      text: nextDataSet.question,
       type: 'question'
     })
     
-    this.setState({
-      // chats
-      chats: chats,
-      currentId: nextQuestionId,
-      answers: this.state.dataset[nextQuestionId].answers
-    })
+    setAnswers(nextDataSet.answers);
+    setCurrentId(nextQuestionId);
   }
   
   // 回答した場合
-  selectAnswer = (selectedAnswer, nextQuestionId) => {
+  const selectAnswer = (selectedAnswer, nextQuestionId) => {
     switch(true) {
-      case (nextQuestionId === 'init'):
-        this.displayNextQuestion(nextQuestionId);
-        break;
-      
       case (/^https:*/.test(nextQuestionId)):
         const link = document.createElement('a');
         link.href = nextQuestionId;
@@ -50,50 +33,44 @@ export default class App extends React.Component {
         break;
         
       case (nextQuestionId === 'contact'):
-        this.handleClickOpen()
+        handleClickOpen()
         break;
         
       default:
-        const chats = this.state.chats;
-        chats.push({
+        addChats({
           text: selectedAnswer,
           type: 'answer'
         });
         
-        this.setState({
-          // chats
-          chats: chats
-        })
-        
-        setTimeout(() => this.displayNextQuestion(nextQuestionId), 1000);
+        setTimeout(() => displayNextQuestion(nextQuestionId, dataset[nextQuestionId]), 1000);
         break;
     }
   }
   
-  initDataset = (dataset) => {
-    this.setState({dataset: dataset})
+  const addChats = (chat) => {
+    setChats((prevChats) => {
+      return [...prevChats, chat]
+    })
   }
   
   // 画面初期描画直後に実行される
-  componentDidMount() {
+  useEffect(() => {
     (async() => {
-      const dataset = this.state.dataset;
+      const initDataset = {};
       const q = collection(db, 'questions');
       const querySnapShot = await getDocs(q);
       
       querySnapShot.forEach((doc) => {
-          dataset[doc.id] = doc.data();
+          initDataset[doc.id] = doc.data();
       })
       
-      this.initDataset(dataset);
-      const initAnswer = '';
-      this.selectAnswer(initAnswer, this.state.currentId);
+      setDataset(initDataset);
+      displayNextQuestion(currentId, initDataset[currentId])
     })();
-
-  }
+  }, []);
   
   // 最新チャットが見えるようにスクロール位置を最下部に設定
-  componentDidUpdate() {
+  useEffect(() => {
     const scrollArea = document.getElementById('scroll-area');
     
     if(scrollArea) {
@@ -102,27 +79,27 @@ export default class App extends React.Component {
         behavior: 'smooth'
       })
     }
-  }
+  })
   
   // モーダルオープン
-  handleClickOpen() {
-    this.setState({open: true});
+  const handleClickOpen = () => {
+    setOpen(true)
   };
 
   // モーダルクローズ
-  handleClose() {
-      this.setState({open: false});
-  };
+  const handleClose = useCallback(() => {
+    setOpen(false)
+  }, [setOpen])
   
-  render() {
-    return (
-      <section className='c-section'>
-        <div className='c-box'>
-          <Chats chats={this.state.chats}/>
-          <AnswersList answers={this.state.answers} select={this.selectAnswer}/>
-          <FormDialog open={this.state.open} handleClose={this.handleClose} />
-        </div>
-      </section>
-    );
-  }
+  return (
+    <section className='c-section'>
+      <div className='c-box'>
+        <Chats chats={chats}/>
+        <AnswersList answers={answers} select={selectAnswer}/>
+        <FormDialog open={open} handleClose={handleClose} />
+      </div>
+    </section>
+  );
 }
+
+export default App
