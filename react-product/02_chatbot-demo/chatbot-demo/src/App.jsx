@@ -38,6 +38,13 @@ export default class App extends React.Component {
       case (nextQuestionId === 'init'):
         this.displayNextQuestion(nextQuestionId);
         break;
+      
+      case (/^https:*/.test(nextQuestionId)):
+        const link = document.createElement('a');
+        link.href = nextQuestionId;
+        link.target = '_blank';
+        link.click();
+        break;
         
       default:
         const chats = this.state.chats;
@@ -51,7 +58,7 @@ export default class App extends React.Component {
           chats: chats
         })
         
-        this.displayNextQuestion(nextQuestionId)
+        setTimeout(() => this.displayNextQuestion(nextQuestionId), 1000);
         break;
     }
   }
@@ -60,6 +67,18 @@ export default class App extends React.Component {
   componentDidMount() {
     const initAnswer = '';
     this.selectAnswer(initAnswer, this.state.currentId);
+  }
+  
+  // 最新チャットが見えるようにスクロール位置を最下部に設定
+  componentDidUpdate() {
+    const scrollArea = document.getElementById('scroll-area');
+    
+    if(scrollArea) {
+      scrollArea.scrollTo({
+        top: scrollArea.scrollHeight,
+        behavior: 'smooth'
+      })
+    }
   }
   
   render() {
