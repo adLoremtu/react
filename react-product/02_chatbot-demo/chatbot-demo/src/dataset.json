@@ -1,0 +1,62 @@
+{
+    "init": {
+        "answers": [
+            {"content": "仕事を依頼したい", "nextId": "job_offer"},
+            {"content": "勉強方法を知りたい", "nextId": "howto_study"},
+            {"content": "てかあなたは誰ですか", "nextId": "dating"}
+        ],
+        "question": "こんにちは！ご用件はなんでしょうか？"
+    },
+    "job_offer": {
+        "answers": [
+            {"content": "Webサイトを制作してほしい", "nextId": "website"},
+            {"content": "Webアプリを開発してほしい", "nextId": "webapp"},
+            {"content": "勉強会を実施してほしい", "nextId": "study_meeting"},
+            {"content": "その他", "nextId": "other_jobs"}
+        ],
+        "question": "どのようなお仕事でしょうか？"
+    },
+    "website": {
+        "answers": [
+            {"content": "問い合わせる", "nextId": "contact"},
+            {"content": "最初の質問に戻る", "nextId": "init"}
+        ],
+        "question": "Webサイト細作についてですね。コチラからお問い合わせできます。"
+    },
+    "webapp": {
+        "answers": [
+            {"content": "問い合わせる", "nextId": "contact"},
+            {"content": "最初の質問に戻る", "nextId": "init"}
+        ],
+        "question": "Webアプリ開発についてですね。コチラからお問い合わせできます。"
+    },
+    "study_meeting": {
+        "answers": [
+            {"content": "問い合わせる", "nextId": "contact"},
+            {"content": "最初の質問に戻る", "nextId": "init"}
+        ],
+        "question": "勉強会についてですね。コチラからお問い合わせできます。"
+    },
+    "other_jobs": {
+        "answers": [
+            {"content": "問い合わせる", "nextId": "contact"},
+            {"content": "最初の質問に戻る", "nextId": "init"}
+        ],
+        "question": "その他についてですね。コチラからお問い合わせできます。"
+    },
+    "howto_study": {
+        "answers": [
+            {"content": "YouTubeで動画を見る", "nextId": "https://www.youtube.com/"},
+            {"content": "大先生に聞いてみる", "nextId": "https://www.google.com/?hl=ja"},
+            {"content": "最初の質問に戻る", "nextId": "init"}
+        ],
+        "question": "勉強方法についてですか。大体はここら辺ですかね。"
+    },
+    "dating": {
+        "answers": [
+            {"content": "会社はどこですか？", "nextId": "https://nijibox.jp/"},
+            {"content": "最初の質問に戻る", "nextId": "init"}
+        ],
+        "question": "私は社会人の男です。詳しく知りたい？"
+    }
+}
