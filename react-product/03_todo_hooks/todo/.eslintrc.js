@@ -32,6 +32,7 @@ module.exports = {
     "indent": ["error", 4],
     'react/react-in-jsx-scope': 'off',
     "no-use-before-define": "off",
+    "space-before-function-paren": ["error", "never"],
     "@typescript-eslint/no-use-before-define": ["error"]
   }
 }

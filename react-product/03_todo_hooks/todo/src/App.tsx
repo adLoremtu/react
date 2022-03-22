@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from './logo.svg'
-import './App.css'
+import './App.scss'
+import styles from './dummy.module.scss'
 
 function App() {
     return (
@@ -13,7 +14,8 @@ function App() {
                 <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
                     Learn React
                 </a>
-                <p>test hoge huga</p>
+                <div className={`test-class ${styles.test}`}>hello css-modules with sass</div>
+                <div className={styles['dummy-text']}>dummy-text</div>
             </header>
         </div>
     )
