@@ -14,8 +14,6 @@ function App() {
                     Learn React
                 </a>
                 <p>test hoge huga</p>
-                <p>test husky eslint check</p>
-                <p>test lint-staged check</p>
             </header>
         </div>
     )
