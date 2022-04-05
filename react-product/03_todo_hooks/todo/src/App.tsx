@@ -1,22 +1,16 @@
-import React from 'react'
-import logo from './logo.svg'
+import React, { useState } from 'react'
 import './App.scss'
-import styles from './dummy.module.scss'
 
-function App() {
+const App = () => {
+    // 状態管理
+    const [text, setText] = useState('')
+
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-                    Learn React
-                </a>
-                <div className={`test-class ${styles.test}`}>hello css-modules with sass</div>
-                <div className={styles['dummy-text']}>dummy-text</div>
-            </header>
+        <div>
+            <form onSubmit={(e) => e.preventDefault()}>
+                <input type="text" value={text} onChange={(e) => setText(e.target.value)} />
+                <input type="submit" value="追加" onSubmit={(e) => e.preventDefault()} />
+            </form>
         </div>
     )
 }
